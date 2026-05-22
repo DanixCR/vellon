@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Vellon.Application/Vellon.Application.csproj" />
+  <Project Path="Vellon.Domain/Vellon.Domain.csproj" />
+  <Project Path="Vellon.Infrastructure/Vellon.Infrastructure.csproj" />
+  <Project Path="Vellon.WebAPI/Vellon.WebAPI.csproj" />
+</Solution>

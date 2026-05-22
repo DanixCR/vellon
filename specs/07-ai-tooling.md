@@ -35,7 +35,7 @@ En lugar de un CLAUDE.md monolítico con 1000+ líneas, se usan **Skills modular
 ├── react-frontend/
 │   └── SKILL.md                ← Convenciones de React + TypeScript
 ├── ef-core/
-│   └── SKILL.md                ← Patrones de EF Core 8, migraciones, repos
+│   └── SKILL.md                ← Patrones de EF Core 10, migraciones, repos
 ├── jwt-auth/
 │   └── SKILL.md                ← Flujo JWT, BCrypt, claims estándar
 ├── testing/
@@ -182,7 +182,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '10.0.x'
       - run: dotnet restore backend/
       - run: dotnet build backend/ --no-restore
       - run: dotnet test backend/ --no-build

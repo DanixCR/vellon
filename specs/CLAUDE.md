@@ -19,7 +19,7 @@ Repositorio: `github.com/DanixCR/vellon`
 
 ## Stack Tecnológico
 
-- **Backend:** ASP.NET Core 8 Web API · C# · EF Core 8 · SQL Server
+- **Backend:** ASP.NET Core 10 Web API · C# · EF Core 10 · SQL Server
 - **Frontend:** React · Vite · TypeScript
 - **Auth:** JWT Bearer · BCrypt · MailKit
 - **Arquitectura:** Clean Architecture (4 capas)

@@ -1,3 +1,3 @@
 namespace Vellon.Application.DTOs.Auth;
 
-public record LoginRequestDto;
+public record LoginRequestDto(string Username, string Password);

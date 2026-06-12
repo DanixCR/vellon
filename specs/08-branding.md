@@ -163,3 +163,67 @@ Si se necesitan imágenes adicionales para el sitio público, mantener consisten
    light blue #29ABE2 and white color palette, Costa Rica nonprofit foundation, 
    hope and community theme, clean white background"
   ```
+
+---
+
+## Google Stitch — Generación del Diseño del Sitio Público
+
+El diseño visual del sitio público se genera con **Google Stitch** via MCP integrado con Claude Code. El panel admin se desarrolla de forma tradicional.
+
+### Prompt para Stitch
+
+```
+Design a warm and friendly nonprofit website for "Fundación Ovejitas de Costa Rica",
+a foundation that helps vulnerable families.
+
+Brand:
+- Primary color: #29ABE2 (sky blue)
+- Dark accent: #0077B6
+- White background
+- Font: Nunito (rounded, friendly)
+- Mascot: a small white cartoon sheep (ovejita)
+- Tagline: "Por un futuro mejor..."
+
+Pages needed:
+1. Home — hero with logo + tagline, mission summary, 3 recent activities cards, CTA "Quiero colaborar"
+2. Nosotros — mission, vision, who we are, contact info
+3. Actividades — grid of activity cards with title, description, date, image
+4. Contacto — contact form (name, email, phone, type, message)
+5. Voluntariado — volunteer registration form
+
+Style: clean, modern, mobile-first, pill-shaped buttons, warm and welcoming tone.
+Navigation: logo left, links center, "Personal administrativo" link right (subtle).
+Footer: dark blue #0077B6, white text, email and phone.
+```
+
+### Configuración del MCP en Claude Code
+
+```json
+// Agregar en claude_code_config.json
+{
+  "mcpServers": {
+    "stitch": {
+      "command": "npx",
+      "args": ["-y", "@google/stitch-mcp"],
+      "env": {
+        "STITCH_API_KEY": "TU_API_KEY_AQUI"
+      }
+    }
+  }
+}
+```
+
+### Prompt para Claude Code (Módulo 8)
+
+```
+Conectate al MCP de Stitch y lee el DESIGN.md del proyecto Vellon.
+Luego implementa todas las páginas del sitio público de Ovejitas en React
+siguiendo exactamente los tokens de diseño de Stitch y la estructura
+definida en specs/02-public-site.md.
+```
+
+### Notas
+- Stitch genera el DESIGN.md con tokens de color, tipografía y layout
+- Claude Code lee ese DESIGN.md via MCP antes de implementar
+- El panel admin NO usa Stitch — va igual que NexusERP
+- API Key en stitch.withgoogle.com → Settings → API Keys

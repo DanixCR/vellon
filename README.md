@@ -298,11 +298,11 @@ npm run dev
 - [x] `ci.yml` — security review automático con Claude (Anthropic)
 - [x] `release.yml` — Release Please para versionado automático en main
 
-### 📋 Fase 4 — Sitio público con Google Stitch
-- [ ] Diseño visual generado con Google Stitch (IA)
-- [ ] Páginas públicas: Home, Nosotros, Actividades, Contacto, Voluntariado
-- [ ] Formulario de contacto integrado con el backend
-- [ ] Registro de voluntarios desde el sitio público
+### ✅ Fase 4 — Sitio público con Google Stitch
+- [x] Diseño visual generado con Google Stitch (IA)
+- [x] Páginas públicas: Home, Nosotros, Actividades, Contacto, Voluntariado
+- [x] Formulario de contacto integrado con el backend
+- [x] Registro de voluntarios desde el sitio público
 
 ### ☁️ Fase 5 — Deploy en Azure
 - [ ] Deploy backend en Azure App Service

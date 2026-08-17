@@ -1,0 +1,30 @@
+namespace Vellon.Application.DTOs.Project;
+
+public record CreateProjectDto(
+    string Name,
+    string Description,
+    string ProjectType,
+    DateTime StartDate,
+    DateTime? EstimatedEndDate,
+    string? Duration,
+    string? ActivityFrequency,
+    string MainObjective,
+    string? SpecificObjectives,
+    string? TargetPopulation,
+    int? EstimatedBeneficiaries,
+    string? GeographicLocation,
+    string? SelectionCriteria,
+    string? PriorityPopulation,
+    decimal? TotalBudget,
+    bool HasFunding,
+    string? FundingSource,
+    string? AdditionalResources,
+    string ResponsibleName,
+    string? ResponsibleRole,
+    string? ResponsiblePhone,
+    string? ResponsibleEmail,
+    string? TeamMembers,
+    string? AdminNotes,
+    List<CreateProjectActivityDto> Activities,
+    List<CreateProjectBudgetItemDto> BudgetItems
+);

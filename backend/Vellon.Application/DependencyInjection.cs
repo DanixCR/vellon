@@ -10,6 +10,11 @@ public static class ApplicationServiceExtensions
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IContactRecordService, ContactRecordService>();
+        services.AddScoped<IActivityService, ActivityService>();
+        services.AddScoped<ISocioeconomicStudyService, SocioeconomicStudyService>();
+        services.AddScoped<IVolunteerService, VolunteerService>();
+        services.AddScoped<IProjectService, ProjectService>();
+        services.AddScoped<IAdminService, AdminService>();
         return services;
     }
 }

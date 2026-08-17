@@ -13,6 +13,7 @@ public class SocioeconomicStudyRepository : ISocioeconomicStudyRepository
 
     public async Task<IEnumerable<SocioeconomicStudy>> GetAllAsync(CancellationToken ct = default)
         => await _context.SocioeconomicStudies
+            .Include(s => s.FamilyMembers)
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync(ct);
 

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet new *)",
+      "Bash(npm install *)",
+      "Bash(dotnet sln *)",
+      "Bash(dotnet add *)",
+      "Bash(dotnet build *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\danch\\\\source\\\\repos\\\\vellon\\\\backend\" -Recurse -Force)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\danch\\\\source\\\\repos\\\\vellon\\\\backend\" -Recurse -Exclude \"bin\", \"obj\" -File | Where-Object {$_.Extension -ne \".json\" -and $_.Extension -ne \".exe\" -and $_.Extension -ne \".dll\" -and $_.Extension -ne \".pdb\" -and $_.Extension -ne \".deps\"} | Select-Object FullName | Sort-Object FullName)",
+      "PowerShell(Get-ChildItem *)"
+    ]
+  }
+}

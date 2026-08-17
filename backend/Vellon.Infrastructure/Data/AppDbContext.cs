@@ -142,13 +142,13 @@ public class AppDbContext : DbContext
             e.Property(b => b.EstimatedAmount).HasColumnType("decimal(12,2)");
         });
 
-        // Seed del admin inicial — contraseña: Admin123!
+        // Seed del admin inicial — contraseña: Admin1234!
         modelBuilder.Entity<Admin>().HasData(new Admin
         {
             Id = 1,
             Username = "admin",
             Email = "fundacionovejitas@gmail.com",
-            PasswordHash = "$2a$11$tPGbje4yjCzbY0nZZ0PPceNWehyaTv6ScDRZhyFz5pgugunZEFLp6",
+            PasswordHash = "$2a$11$KYNqFn.oE3gSp1qBQL38U.V3X24Ud5vIOlF66bEvPjLoJDcu9EEPO",
             FullName = "Administrador General",
             IsActive = true,
             IsSuperAdmin = true,

@@ -3,9 +3,9 @@ using Vellon.Application.DTOs.Volunteer;
 
 namespace Vellon.Application.Validators;
 
-public class CreateVolunteerValidator : AbstractValidator<CreateVolunteerDto>
+public class UpdateVolunteerValidator : AbstractValidator<UpdateVolunteerDto>
 {
-    public CreateVolunteerValidator()
+    public UpdateVolunteerValidator()
     {
         RuleFor(x => x.FullName)
             .NotEmpty().WithMessage("El nombre completo es requerido.")

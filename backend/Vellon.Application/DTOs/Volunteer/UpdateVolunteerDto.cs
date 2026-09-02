@@ -4,6 +4,7 @@ public record UpdateVolunteerDto(
     string FullName,
     string IdNumber,
     DateTime BirthDate,
+    int? Age,
     string Phone,
     string Email,
     string? Address,

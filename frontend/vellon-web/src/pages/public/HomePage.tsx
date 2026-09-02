@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import banner from '../../assets/ovejitas/about-banner.jpg';
 import ActivityCard from '../../components/public/ActivityCard';
+import DonationInfo from '../../components/public/DonationInfo';
 import { activityService, type ActivityPublic } from '../../services/activityService';
 import '../../styles/public.css';
 
@@ -60,6 +61,10 @@ export default function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      <section>
+        <DonationInfo border="primary" />
       </section>
     </main>
   );

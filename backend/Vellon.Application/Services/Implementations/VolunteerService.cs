@@ -37,6 +37,7 @@ public class VolunteerService : IVolunteerService
             FullName = dto.FullName,
             IdNumber = dto.IdNumber,
             BirthDate = dto.BirthDate,
+            Age = dto.Age,
             Phone = dto.Phone,
             Email = dto.Email,
             Address = dto.Address,
@@ -94,6 +95,7 @@ public class VolunteerService : IVolunteerService
         volunteer.FullName = dto.FullName;
         volunteer.IdNumber = dto.IdNumber;
         volunteer.BirthDate = dto.BirthDate;
+        volunteer.Age = dto.Age;
         volunteer.Phone = dto.Phone;
         volunteer.Email = dto.Email;
         volunteer.Address = dto.Address;
@@ -138,7 +140,7 @@ public class VolunteerService : IVolunteerService
             v.AvailableSchedule, v.Status.ToString(), v.CreatedAt);
 
     private static VolunteerDetailDto MapToDetailDto(Volunteer v) => new(
-        v.Id, v.FullName, v.IdNumber, v.BirthDate, v.Phone, v.Email,
+        v.Id, v.FullName, v.IdNumber, v.BirthDate, v.Age, v.Phone, v.Email,
         v.Address, v.CurrentOccupation,
         v.AvailableDays, v.AvailableSchedule, v.WeeklyHours, v.SpecialAvailability,
         v.Skills, v.OtherSkills, v.PreviousVolunteerExperience, v.EducationLevel, v.Languages,

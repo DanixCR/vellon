@@ -15,6 +15,11 @@ const emptyItem = (): HouseholdItemInput => ({
   itemName: '', quantity: 1, condition: '', acquisitionType: '', hasPendingPayments: false,
 });
 
+const HOUSEHOLD_ITEMS = [
+  'Cocina', 'Refrigeradora', 'Televisores', 'Microondas', 'Equipo de sonido', 'DVD',
+  'Consola de videojuegos', 'Camas', 'Muebles', 'Computador', 'Teléfono fijo', 'Teléfono celular', 'Otros',
+];
+
 const defaultForm = (): CreateSocioeconomicInput => ({
   isAlimonyVoluntary: false,
   hasCreditCard: false,
@@ -186,6 +191,16 @@ export default function SocioeconomicFormPage() {
             {numField('Otros gastos', 'otherExpenses')}
           </div>
           {txtField('Detalle otros gastos', 'otherExpensesDetails')}
+          <div className="form-group">
+            <label>Total de gastos</label>
+            <p style={{ marginTop: 8, fontWeight: 700 }}>
+              {new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC' }).format(
+                (form.foodExpense ?? 0) + (form.educationExpense ?? 0) + (form.servicesExpense ?? 0) +
+                (form.medicineExpense ?? 0) + (form.rentExpense ?? 0) + (form.cableExpense ?? 0) +
+                (form.debtExpense ?? 0) + (form.otherExpenses ?? 0)
+              )}
+            </p>
+          </div>
 
           <div className="form-section-title">Finanzas</div>
           <div className="form-group">
@@ -288,7 +303,12 @@ export default function SocioeconomicFormPage() {
           {items.map((item, i) => (
             <div key={i} className="dynamic-list-row">
               <div className="form-group"><label>Artículo</label>
-                <input value={item.itemName} onChange={(e) => updateItem(i, 'itemName', e.target.value)} required />
+                <select value={item.itemName} onChange={(e) => updateItem(i, 'itemName', e.target.value)} required>
+                  <option value="" disabled>Seleccioná un artículo</option>
+                  {HOUSEHOLD_ITEMS.map((name) => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
               </div>
               <div className="form-group"><label>Cantidad</label>
                 <input type="number" min={1} value={item.quantity}

@@ -5,13 +5,22 @@ import { volunteerService } from '../../services/volunteerService';
 import '../../styles/public.css';
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-const SKILLS = ['Educación', 'Salud', 'Logística', 'Apoyo en Eventos', 'Otro'];
-const INTEREST_AREAS = ['Atención directa', 'Educación y Talleres', 'Logística y Operaciones', 'Apoyo en Eventos', 'Acompañamiento en Salud'];
+const SKILLS = [
+  'Educación', 'Salud', 'Logística', 'Apoyo en Eventos',
+  'Arte/Música', 'Deportes/Recreación', 'Cocina/Nutrición', 'Carpintería/Manualidades',
+  'Comunicación/Redes sociales', 'Informática/Tecnología', 'Psicología/Trabajo social', 'Idiomas',
+  'Otro',
+];
+const INTEREST_AREAS = [
+  'Atención directa', 'Educación y Talleres', 'Logística y Operaciones', 'Apoyo en Eventos', 'Acompañamiento en Salud',
+  'Recolección de donaciones', 'Apoyo psicosocial', 'Logística y transporte', 'Redes sociales/comunicación',
+];
 
 interface FormValues {
   fullName: string;
   idNumber: string;
   birthDate: string;
+  age: string;
   phone: string;
   email: string;
   address: string;
@@ -22,6 +31,9 @@ interface FormValues {
   specialAvailability: string;
   skills: string[];
   otherSkills: string;
+  previousVolunteerExperience: string;
+  educationLevel: string;
+  languages: string;
   interestAreas: string[];
   otherInterestArea: string;
   reference1Name: string;
@@ -33,6 +45,7 @@ interface FormValues {
   reference2Phone: string;
   reference2Email: string;
   motivation: string;
+  expectedContribution: string;
 }
 
 export default function VolunteerPage() {
@@ -46,6 +59,7 @@ export default function VolunteerPage() {
         fullName: data.fullName,
         idNumber: data.idNumber,
         birthDate: data.birthDate,
+        age: data.age ? Number(data.age) : undefined,
         phone: data.phone,
         email: data.email,
         address: data.address || undefined,
@@ -56,6 +70,9 @@ export default function VolunteerPage() {
         specialAvailability: data.specialAvailability || undefined,
         skills: data.skills?.length ? JSON.stringify(data.skills) : undefined,
         otherSkills: data.otherSkills || undefined,
+        previousVolunteerExperience: data.previousVolunteerExperience || undefined,
+        educationLevel: data.educationLevel || undefined,
+        languages: data.languages || undefined,
         interestAreas: data.interestAreas?.length ? JSON.stringify(data.interestAreas) : undefined,
         otherInterestArea: data.otherInterestArea || undefined,
         reference1Name: data.reference1Name || undefined,
@@ -67,6 +84,7 @@ export default function VolunteerPage() {
         reference2Phone: data.reference2Phone || undefined,
         reference2Email: data.reference2Email || undefined,
         motivation: data.motivation || undefined,
+        expectedContribution: data.expectedContribution || undefined,
       });
       setStatus('success');
       reset();
@@ -160,12 +178,20 @@ export default function VolunteerPage() {
                   {errors.birthDate && <p className="form-error">{errors.birthDate.message}</p>}
                 </div>
                 <div className="form-field">
+                  <label htmlFor="age">Edad</label>
+                  <input id="age" type="number" min={1} max={120} className="pill-input" placeholder="Ej. 28" {...register('age', {
+                    min: { value: 1, message: 'La edad debe ser un valor válido.' },
+                    max: { value: 120, message: 'La edad debe ser un valor válido.' },
+                  })} />
+                  {errors.age && <p className="form-error">{errors.age.message}</p>}
+                </div>
+              </div>
+              <div className="form-row form-row--2">
+                <div className="form-field">
                   <label htmlFor="phone">Teléfono</label>
                   <input id="phone" type="tel" className="pill-input" placeholder="Ej. 8888-8888" {...register('phone', { required: 'El teléfono es requerido.' })} />
                   {errors.phone && <p className="form-error">{errors.phone.message}</p>}
                 </div>
-              </div>
-              <div className="form-row form-row--2">
                 <div className="form-field">
                   <label htmlFor="email">Correo Electrónico</label>
                   <input id="email" type="email" className="pill-input" placeholder="ejemplo@correo.com" {...register('email', {
@@ -174,14 +200,16 @@ export default function VolunteerPage() {
                   })} />
                   {errors.email && <p className="form-error">{errors.email.message}</p>}
                 </div>
+              </div>
+              <div className="form-row form-row--2">
                 <div className="form-field">
                   <label htmlFor="currentOccupation">Ocupación actual</label>
                   <input id="currentOccupation" className="pill-input" placeholder="Opcional" {...register('currentOccupation')} />
                 </div>
-              </div>
-              <div className="form-field">
-                <label htmlFor="address">Dirección (provincia, cantón, distrito)</label>
-                <input id="address" className="pill-input" placeholder="Opcional" {...register('address')} />
+                <div className="form-field">
+                  <label htmlFor="address">Dirección (provincia, cantón, distrito)</label>
+                  <input id="address" className="pill-input" placeholder="Opcional" {...register('address')} />
+                </div>
               </div>
             </div>
 
@@ -232,6 +260,20 @@ export default function VolunteerPage() {
               <div className="form-field">
                 <label htmlFor="otherSkills">Otras habilidades</label>
                 <input id="otherSkills" className="pill-input" placeholder="Opcional" {...register('otherSkills')} />
+              </div>
+              <div className="form-row form-row--2">
+                <div className="form-field">
+                  <label htmlFor="previousVolunteerExperience">Experiencia previa en voluntariado</label>
+                  <input id="previousVolunteerExperience" className="pill-input" placeholder="Opcional" {...register('previousVolunteerExperience')} />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="educationLevel">Estudios o formación</label>
+                  <input id="educationLevel" className="pill-input" placeholder="Opcional" {...register('educationLevel')} />
+                </div>
+              </div>
+              <div className="form-field">
+                <label htmlFor="languages">Idiomas adicionales</label>
+                <input id="languages" className="pill-input" placeholder="Opcional" {...register('languages')} />
               </div>
             </div>
 
@@ -301,6 +343,11 @@ export default function VolunteerPage() {
             <div className="form-field">
               <label htmlFor="motivation">¿Por qué te gustaría unirte a Fundación Ovejitas?</label>
               <textarea id="motivation" className="pill-textarea" rows={4} placeholder="Cuéntanos un poco sobre ti y tu motivación..." {...register('motivation')} />
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="expectedContribution">¿Qué espera aprender o aportar?</label>
+              <textarea id="expectedContribution" className="pill-textarea" rows={4} placeholder="Contanos qué te gustaría aprender o aportar como voluntario/a..." {...register('expectedContribution')} />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

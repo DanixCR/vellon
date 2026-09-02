@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import logo from '../../assets/ovejitas/logo.jpg';
+import DonationInfo from '../../components/public/DonationInfo';
 import { contactService } from '../../services/contactService';
 import '../../styles/public.css';
 
@@ -167,6 +168,8 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+
+          <DonationInfo border="secondary" />
         </div>
       </div>
     </main>

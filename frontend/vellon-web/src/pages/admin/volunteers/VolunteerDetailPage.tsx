@@ -2,12 +2,22 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import StatusBadge from '../../../components/admin/StatusBadge';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
-import { volunteerService, type Volunteer } from '../../../services/volunteerService';
+import { volunteerService, type VolunteerDetail } from '../../../services/volunteerService';
+
+function parseList(json?: string): string[] {
+  if (!json) return [];
+  try {
+    const parsed = JSON.parse(json);
+    return Array.isArray(parsed) ? parsed : [json];
+  } catch {
+    return [json];
+  }
+}
 
 export default function VolunteerDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [volunteer, setVolunteer] = useState<Volunteer | null>(null);
+  const [volunteer, setVolunteer] = useState<VolunteerDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -61,8 +71,12 @@ export default function VolunteerDetailPage() {
         <div className="detail-grid">
           <div className="detail-field"><label>Nombre completo</label><p>{volunteer.fullName}</p></div>
           <div className="detail-field"><label>Cédula</label><p>{volunteer.idNumber}</p></div>
+          <div className="detail-field"><label>Fecha de nacimiento</label><p>{new Date(volunteer.birthDate).toLocaleDateString('es-CR')}</p></div>
+          <div className="detail-field"><label>Edad</label><p>{volunteer.age ?? '—'}</p></div>
           <div className="detail-field"><label>Email</label><p>{volunteer.email}</p></div>
           <div className="detail-field"><label>Teléfono</label><p>{volunteer.phone}</p></div>
+          <div className="detail-field"><label>Dirección</label><p>{volunteer.address || '—'}</p></div>
+          <div className="detail-field"><label>Ocupación actual</label><p>{volunteer.currentOccupation || '—'}</p></div>
           <div className="detail-field">
             <label>Estado</label>
             <p><StatusBadge value={volunteer.status} /></p>
@@ -72,12 +86,58 @@ export default function VolunteerDetailPage() {
             <p>{new Date(volunteer.createdAt).toLocaleDateString('es-CR')}</p>
           </div>
         </div>
-        {volunteer.availableSchedule && (
+
+        <div style={{ marginTop: 20 }}>
+          <h3 className="form-section-title">Disponibilidad</h3>
+          <div className="detail-grid">
+            <div className="detail-field"><label>Días disponibles</label><p>{parseList(volunteer.availableDays).join(', ') || '—'}</p></div>
+            <div className="detail-field"><label>Horario</label><p>{volunteer.availableSchedule || '—'}</p></div>
+            <div className="detail-field"><label>Horas semanales</label><p>{volunteer.weeklyHours ?? '—'}</p></div>
+            <div className="detail-field"><label>Disponibilidad especial</label><p>{volunteer.specialAvailability || '—'}</p></div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <h3 className="form-section-title">Habilidades</h3>
+          <div className="detail-grid">
+            <div className="detail-field"><label>Habilidades</label><p>{parseList(volunteer.skills).join(', ') || '—'}</p></div>
+            <div className="detail-field"><label>Otras habilidades</label><p>{volunteer.otherSkills || '—'}</p></div>
+            <div className="detail-field"><label>Experiencia previa en voluntariado</label><p>{volunteer.previousVolunteerExperience || '—'}</p></div>
+            <div className="detail-field"><label>Estudios o formación</label><p>{volunteer.educationLevel || '—'}</p></div>
+            <div className="detail-field"><label>Idiomas</label><p>{volunteer.languages || '—'}</p></div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <h3 className="form-section-title">Área de interés</h3>
+          <div className="detail-grid">
+            <div className="detail-field"><label>Áreas de interés</label><p>{parseList(volunteer.interestAreas).join(', ') || '—'}</p></div>
+            <div className="detail-field"><label>Otra área de interés</label><p>{volunteer.otherInterestArea || '—'}</p></div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <h3 className="form-section-title">Referencias personales</h3>
+          <div className="detail-grid">
+            <div className="detail-field"><label>Referencia 1</label><p>{volunteer.reference1Name || '—'} {volunteer.reference1Relation ? `(${volunteer.reference1Relation})` : ''}</p></div>
+            <div className="detail-field"><label>Teléfono / correo</label><p>{[volunteer.reference1Phone, volunteer.reference1Email].filter(Boolean).join(' · ') || '—'}</p></div>
+            <div className="detail-field"><label>Referencia 2</label><p>{volunteer.reference2Name || '—'} {volunteer.reference2Relation ? `(${volunteer.reference2Relation})` : ''}</p></div>
+            <div className="detail-field"><label>Teléfono / correo</label><p>{[volunteer.reference2Phone, volunteer.reference2Email].filter(Boolean).join(' · ') || '—'}</p></div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <h3 className="form-section-title">Motivación</h3>
+          <div className="detail-grid">
+            <div className="detail-field"><label>¿Por qué quiere unirse?</label><p>{volunteer.motivation || '—'}</p></div>
+            <div className="detail-field"><label>¿Qué espera aprender o aportar?</label><p>{volunteer.expectedContribution || '—'}</p></div>
+          </div>
+        </div>
+
+        {volunteer.adminNotes && (
           <div style={{ marginTop: 20 }}>
-            <div className="detail-field">
-              <label>Horario disponible</label>
-              <p style={{ marginTop: 6 }}>{volunteer.availableSchedule}</p>
-            </div>
+            <h3 className="form-section-title">Notas del admin</h3>
+            <div className="detail-field"><p>{volunteer.adminNotes}</p></div>
           </div>
         )}
       </div>

@@ -16,10 +16,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateContactRecordValidato
 builder.Services.AddOpenApi();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+var frontendUrl = builder.Configuration["AppSettings:FrontendUrl"] ?? "http://localhost:5173";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact", policy =>
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(frontendUrl)
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
@@ -42,6 +43,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+
+if (app.Environment.IsProduction())
+{
+    var secretKey = jwt["SecretKey"];
+    if (string.IsNullOrWhiteSpace(secretKey)
+        || secretKey.Contains("CHANGE_THIS", StringComparison.OrdinalIgnoreCase)
+        || secretKey.Length < 32)
+    {
+        throw new InvalidOperationException(
+            "JwtSettings:SecretKey no está configurado correctamente para producción. " +
+            "Definí una clave real de al menos 32 caracteres (no el valor placeholder).");
+    }
+}
 
 if (app.Environment.IsDevelopment())
     app.MapOpenApi();

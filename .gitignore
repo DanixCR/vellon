@@ -5,6 +5,11 @@ obj/
 .vs/
 *.suo
 
+# Secretos por entorno — appsettings.json (plantilla con placeholders) sí se trackea
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+
 # Node
 node_modules/
 dist/

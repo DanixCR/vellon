@@ -28,6 +28,9 @@ export default function ProjectFormPage() {
   const [form, setForm] = useState<CreateProjectInput>(defaultForm());
   const [activities, setActivities] = useState<ProjectActivityInput[]>([]);
   const [budgetItems, setBudgetItems] = useState<ProjectBudgetItemInput[]>([]);
+  const [createdAt, setCreatedAt] = useState<string | null>(null);
+  const [status, setStatus] = useState('Planificado');
+  const [originalStatus, setOriginalStatus] = useState('Planificado');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -57,6 +60,9 @@ export default function ProjectFormPage() {
       setBudgetItems(p.budgetItems.map((b) => ({
         concept: b.concept, estimatedAmount: b.estimatedAmount, fundingSource: b.fundingSource ?? '',
       })));
+      setCreatedAt(p.createdAt);
+      setStatus(p.status);
+      setOriginalStatus(p.status);
     });
   }, [id, isEdit]);
 
@@ -77,6 +83,9 @@ export default function ProjectFormPage() {
       const payload = { ...form, activities, budgetItems };
       if (isEdit) {
         await projectService.update(Number(id), payload);
+        if (status !== originalStatus) {
+          await projectService.updateStatus(Number(id), status);
+        }
       } else {
         await projectService.create(payload);
       }
@@ -131,6 +140,27 @@ export default function ProjectFormPage() {
             {txt('Duración', 'duration')}
           </div>
           {txt('Frecuencia de actividades', 'activityFrequency')}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Fecha de registro</label>
+              <p style={{ marginTop: 8 }}>
+                {createdAt ? new Date(createdAt).toLocaleDateString('es-CR') : 'Se genera al guardar'}
+              </p>
+            </div>
+            <div className="form-group">
+              <label>Estado del proyecto</label>
+              {isEdit ? (
+                <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                  <option value="Planificado">Planificado</option>
+                  <option value="EnCurso">En curso</option>
+                  <option value="Completado">Completado</option>
+                  <option value="Suspendido">Suspendido</option>
+                </select>
+              ) : (
+                <p style={{ marginTop: 8 }}>Planificado</p>
+              )}
+            </div>
+          </div>
 
           <div className="form-section-title">Objetivos y población</div>
           <div className="form-group">

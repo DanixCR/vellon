@@ -168,7 +168,7 @@ cd vellon
 
 ### 2. Configurar el backend
 
-Editá `backend/Vellon.WebAPI/appsettings.Development.json` con tu connection string, JWT secret y credenciales de email:
+Editá `backend/Vellon.WebAPI/appsettings.Development.json` con tu connection string, JWT secret y credenciales de email. Este archivo está en `.gitignore` — tus secretos reales nunca se suben al repo:
 
 ```json
 {
@@ -256,6 +256,15 @@ npm run dev
 | Variable | Descripción |
 |----------|-------------|
 | `VITE_API_URL` | URL base del API backend |
+
+---
+
+## ⚠️ Antes de producción
+
+- **Rotá `JwtSettings:SecretKey`**: nunca uses el placeholder `CHANGE_THIS_IN_PRODUCTION_USE_A_LONG_RANDOM_STRING` de `appsettings.json`. El backend rechaza arrancar en `Production` si detecta el placeholder o una clave de menos de 32 caracteres.
+- **Cambiá la contraseña del admin semilla** (`admin` / `Admin123!`, documentada arriba) apenas tengas acceso al panel — queda pública en este README.
+- **Configurá `AppSettings:FrontendUrl`** con el dominio real del frontend en producción (se usa tanto para CORS como para el link del email de recuperación de contraseña).
+- Verificá que `appsettings.Development.json` / `appsettings.Production.json` con tus secretos reales nunca se agreguen a git (ya están en `.gitignore`).
 
 ---
 

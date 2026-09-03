@@ -21,6 +21,7 @@ export default function VolunteerDetailPage() {
   const [loading, setLoading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [statusError, setStatusError] = useState('');
 
   useEffect(() => {
     volunteerService.getById(Number(id))
@@ -31,8 +32,13 @@ export default function VolunteerDetailPage() {
 
   const handleStatusChange = async (status: string) => {
     if (!volunteer) return;
-    const updated = await volunteerService.updateStatus(volunteer.id, status);
-    setVolunteer(updated);
+    setStatusError('');
+    try {
+      const updated = await volunteerService.updateStatus(volunteer.id, status, null);
+      setVolunteer(updated);
+    } catch {
+      setStatusError('No se pudo actualizar el estado. Por favor intentá de nuevo.');
+    }
   };
 
   const handleDelete = async () => {
@@ -66,6 +72,8 @@ export default function VolunteerDetailPage() {
           <button className="btn-secondary" onClick={() => navigate('/admin/volunteers')}>← Volver</button>
         </div>
       </div>
+
+      {statusError && <div className="error-text">{statusError}</div>}
 
       <div className="detail-card">
         <div className="detail-grid">

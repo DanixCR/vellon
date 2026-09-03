@@ -16,11 +16,25 @@ const INTEREST_AREAS = [
   'Recolección de donaciones', 'Apoyo psicosocial', 'Logística y transporte', 'Redes sociales/comunicación',
 ];
 
+function calculateAge(birthDate: string): number | undefined {
+  if (!birthDate) return undefined;
+  const hoy = new Date();
+  const nacimiento = new Date(birthDate);
+  if (Number.isNaN(nacimiento.getTime())) return undefined;
+
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const aunNoCumpleEsteAno =
+    hoy.getMonth() < nacimiento.getMonth() ||
+    (hoy.getMonth() === nacimiento.getMonth() && hoy.getDate() < nacimiento.getDate());
+  if (aunNoCumpleEsteAno) edad--;
+
+  return edad >= 0 ? edad : undefined;
+}
+
 interface FormValues {
   fullName: string;
   idNumber: string;
   birthDate: string;
-  age: string;
   phone: string;
   email: string;
   address: string;
@@ -49,8 +63,9 @@ interface FormValues {
 }
 
 export default function VolunteerPage() {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>();
+  const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } = useForm<FormValues>();
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const calculatedAge = calculateAge(watch('birthDate'));
 
   const onSubmit = async (data: FormValues) => {
     setStatus('idle');
@@ -59,7 +74,7 @@ export default function VolunteerPage() {
         fullName: data.fullName,
         idNumber: data.idNumber,
         birthDate: data.birthDate,
-        age: data.age ? Number(data.age) : undefined,
+        age: calculateAge(data.birthDate),
         phone: data.phone,
         email: data.email,
         address: data.address || undefined,
@@ -178,12 +193,10 @@ export default function VolunteerPage() {
                   {errors.birthDate && <p className="form-error">{errors.birthDate.message}</p>}
                 </div>
                 <div className="form-field">
-                  <label htmlFor="age">Edad</label>
-                  <input id="age" type="number" min={1} max={120} className="pill-input" placeholder="Ej. 28" {...register('age', {
-                    min: { value: 1, message: 'La edad debe ser un valor válido.' },
-                    max: { value: 120, message: 'La edad debe ser un valor válido.' },
-                  })} />
-                  {errors.age && <p className="form-error">{errors.age.message}</p>}
+                  <label>Edad</label>
+                  <p className="pill-input" style={{ display: 'flex', alignItems: 'center', background: 'var(--color-surface-container-low)' }}>
+                    {calculatedAge !== undefined ? `Edad: ${calculatedAge} años` : 'Ingresá la fecha de nacimiento'}
+                  </p>
                 </div>
               </div>
               <div className="form-row form-row--2">

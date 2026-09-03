@@ -84,7 +84,7 @@ export const volunteerService = {
   getAll: (status?: string) =>
     api.get<Volunteer[]>('/volunteers', { params: status ? { status } : {} }).then((r) => r.data),
   getById: (id: number) => api.get<VolunteerDetail>(`/volunteers/${id}`).then((r) => r.data),
-  updateStatus: (id: number, status: string) =>
-    api.patch<VolunteerDetail>(`/volunteers/${id}/status`, { status }).then((r) => r.data),
+  updateStatus: (id: number, status: string, adminNotes: string | null = null) =>
+    api.patch<VolunteerDetail>(`/volunteers/${id}/status`, { status, adminNotes }).then((r) => r.data),
   delete: (id: number) => api.delete(`/volunteers/${id}`),
 };

@@ -320,7 +320,7 @@ export default function SocioeconomicFormPage() {
               <div className="form-group"><label>Adquisición</label>
                 <input value={item.acquisitionType ?? ''} onChange={(e) => updateItem(i, 'acquisitionType', e.target.value)} />
               </div>
-              <div className="form-group"><label style={{ display: 'flex', gap: 6 }}>
+              <div className="form-group"><label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <input type="checkbox" checked={item.hasPendingPayments}
                   onChange={(e) => updateItem(i, 'hasPendingPayments', e.target.checked)} />
                 Con deuda

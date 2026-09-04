@@ -6,6 +6,8 @@ import {
   type ProjectActivityInput,
   type ProjectBudgetItemInput,
 } from '../../../services/projectService';
+import { formatDateTime } from '../../../utils/dateUtils';
+import { formatPhoneCR } from '../../../utils/maskUtils';
 
 const emptyActivity = (): ProjectActivityInput => ({ activityName: '', estimatedDate: '', responsible: '' });
 const emptyBudget = (): ProjectBudgetItemInput => ({ concept: '', estimatedAmount: 0, fundingSource: '' });
@@ -144,7 +146,7 @@ export default function ProjectFormPage() {
             <div className="form-group">
               <label>Fecha de registro</label>
               <p style={{ marginTop: 8 }}>
-                {createdAt ? new Date(createdAt).toLocaleDateString('es-CR') : 'Se genera al guardar'}
+                {createdAt ? formatDateTime(createdAt) : 'Se genera al guardar'}
               </p>
             </div>
             <div className="form-group">
@@ -206,7 +208,14 @@ export default function ProjectFormPage() {
             {txt('Rol', 'responsibleRole')}
           </div>
           <div className="form-row">
-            {txt('Teléfono responsable', 'responsiblePhone')}
+            <div className="form-group">
+              <label>Teléfono responsable</label>
+              <input
+                value={form.responsiblePhone ?? ''}
+                maxLength={9}
+                onChange={(e) => set('responsiblePhone', formatPhoneCR(e.target.value))}
+              />
+            </div>
             {txt('Email responsable', 'responsibleEmail')}
           </div>
           {txt('Equipo de trabajo', 'teamMembers')}

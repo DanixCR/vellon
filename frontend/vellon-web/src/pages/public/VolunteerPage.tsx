@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import poster from '../../assets/ovejitas/volunteer-poster.jpg';
 import { volunteerService } from '../../services/volunteerService';
+import { formatIdNumberCR, formatPhoneCR } from '../../utils/maskUtils';
 import '../../styles/public.css';
 
 const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -182,7 +183,10 @@ export default function VolunteerPage() {
                 </div>
                 <div className="form-field">
                   <label htmlFor="idNumber">Cédula</label>
-                  <input id="idNumber" className="pill-input" placeholder="Ej. 1-2345-6789" {...register('idNumber', { required: 'La cédula es requerida.' })} />
+                  <input id="idNumber" className="pill-input" placeholder="Ej. 1-2345-6789" maxLength={11} {...register('idNumber', {
+                    required: 'La cédula es requerida.',
+                    onChange: (e) => { e.target.value = formatIdNumberCR(e.target.value); },
+                  })} />
                   {errors.idNumber && <p className="form-error">{errors.idNumber.message}</p>}
                 </div>
               </div>
@@ -202,7 +206,10 @@ export default function VolunteerPage() {
               <div className="form-row form-row--2">
                 <div className="form-field">
                   <label htmlFor="phone">Teléfono</label>
-                  <input id="phone" type="tel" className="pill-input" placeholder="Ej. 8888-8888" {...register('phone', { required: 'El teléfono es requerido.' })} />
+                  <input id="phone" type="tel" className="pill-input" placeholder="Ej. 8888-8888" maxLength={9} {...register('phone', {
+                    required: 'El teléfono es requerido.',
+                    onChange: (e) => { e.target.value = formatPhoneCR(e.target.value); },
+                  })} />
                   {errors.phone && <p className="form-error">{errors.phone.message}</p>}
                 </div>
                 <div className="form-field">
@@ -322,7 +329,9 @@ export default function VolunteerPage() {
               <div className="form-row form-row--2">
                 <div className="form-field">
                   <label htmlFor="reference1Phone">Teléfono</label>
-                  <input id="reference1Phone" type="tel" className="pill-input" {...register('reference1Phone')} />
+                  <input id="reference1Phone" type="tel" className="pill-input" maxLength={9} {...register('reference1Phone', {
+                    onChange: (e) => { e.target.value = formatPhoneCR(e.target.value); },
+                  })} />
                 </div>
                 <div className="form-field">
                   <label htmlFor="reference1Email">Correo</label>
@@ -344,7 +353,9 @@ export default function VolunteerPage() {
               <div className="form-row form-row--2">
                 <div className="form-field">
                   <label htmlFor="reference2Phone">Teléfono</label>
-                  <input id="reference2Phone" type="tel" className="pill-input" {...register('reference2Phone')} />
+                  <input id="reference2Phone" type="tel" className="pill-input" maxLength={9} {...register('reference2Phone', {
+                    onChange: (e) => { e.target.value = formatPhoneCR(e.target.value); },
+                  })} />
                 </div>
                 <div className="form-field">
                   <label htmlFor="reference2Email">Correo</label>

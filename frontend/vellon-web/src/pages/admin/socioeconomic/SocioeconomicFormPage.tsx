@@ -6,6 +6,7 @@ import {
   type FamilyMemberInput,
   type HouseholdItemInput,
 } from '../../../services/socioeconomicService';
+import { formatIdNumberCR, formatPhoneCR } from '../../../utils/maskUtils';
 
 const emptyMember = (): FamilyMemberInput => ({
   name: '', age: 0, occupation: '', employmentType: '', monthlyIncome: undefined, workplace: '', phone: '',
@@ -244,7 +245,15 @@ export default function SocioeconomicFormPage() {
             {txtField('Nombre del propietario', 'housingOwnerName')}
           </div>
           <div className="form-row">
-            {txtField('Cédula del propietario', 'housingOwnerIdNumber')}
+            <div className="form-group">
+              <label>Cédula del propietario</label>
+              <input
+                type="text"
+                value={form.housingOwnerIdNumber ?? ''}
+                maxLength={11}
+                onChange={(e) => set('housingOwnerIdNumber', formatIdNumberCR(e.target.value))}
+              />
+            </div>
             <div className="form-group">
               <label>Estado deuda vivienda</label>
               <select value={form.housingDebtStatus ?? ''}
@@ -285,7 +294,7 @@ export default function SocioeconomicFormPage() {
                   onChange={(e) => updateMember(i, 'monthlyIncome', e.target.value ? parseFloat(e.target.value) : undefined)} />
               </div>
               <div className="form-group"><label>Teléfono</label>
-                <input value={m.phone ?? ''} onChange={(e) => updateMember(i, 'phone', e.target.value)} />
+                <input value={m.phone ?? ''} maxLength={9} onChange={(e) => updateMember(i, 'phone', formatPhoneCR(e.target.value))} />
               </div>
               <button type="button" className="btn-remove-row"
                 onClick={() => setMembers((prev) => prev.filter((_, idx) => idx !== i))}>✕</button>

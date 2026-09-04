@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StatusBadge from '../../../components/admin/StatusBadge';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import { volunteerService, type VolunteerDetail } from '../../../services/volunteerService';
+import { formatDate, formatDateTime } from '../../../utils/dateUtils';
 
 function parseList(json?: string): string[] {
   if (!json) return [];
@@ -79,7 +80,7 @@ export default function VolunteerDetailPage() {
         <div className="detail-grid">
           <div className="detail-field"><label>Nombre completo</label><p>{volunteer.fullName}</p></div>
           <div className="detail-field"><label>Cédula</label><p>{volunteer.idNumber}</p></div>
-          <div className="detail-field"><label>Fecha de nacimiento</label><p>{new Date(volunteer.birthDate).toLocaleDateString('es-CR')}</p></div>
+          <div className="detail-field"><label>Fecha de nacimiento</label><p>{formatDate(volunteer.birthDate)}</p></div>
           <div className="detail-field"><label>Edad</label><p>{volunteer.age ?? '—'}</p></div>
           <div className="detail-field"><label>Email</label><p>{volunteer.email}</p></div>
           <div className="detail-field"><label>Teléfono</label><p>{volunteer.phone}</p></div>
@@ -91,7 +92,7 @@ export default function VolunteerDetailPage() {
           </div>
           <div className="detail-field">
             <label>Fecha de registro</label>
-            <p>{new Date(volunteer.createdAt).toLocaleDateString('es-CR')}</p>
+            <p>{formatDateTime(volunteer.createdAt)}</p>
           </div>
         </div>
 

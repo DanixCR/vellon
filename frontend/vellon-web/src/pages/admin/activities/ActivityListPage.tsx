@@ -4,6 +4,7 @@ import ActivityToggle from '../../../components/admin/ActivityToggle';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import Pagination from '../../../components/admin/Pagination';
 import { activityService, type ActivityAdmin } from '../../../services/activityService';
+import { formatDate } from '../../../utils/dateUtils';
 
 const PAGE_SIZE = 10;
 
@@ -65,7 +66,7 @@ export default function ActivityListPage() {
               {paged.map((a) => (
                 <tr key={a.id}>
                   <td>{a.title}</td>
-                  <td>{new Date(a.activityDate).toLocaleDateString('es-CR')}</td>
+                  <td>{formatDate(a.activityDate)}</td>
                   <td>
                     <ActivityToggle
                       id={a.id}

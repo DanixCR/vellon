@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import StatusBadge from '../../../components/admin/StatusBadge';
 import { projectService, type ProjectDetail } from '../../../services/projectService';
+import { formatDate } from '../../../utils/dateUtils';
 
 const fmt = (n?: number | null) =>
   n != null ? new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC' }).format(n) : '—';
@@ -81,9 +82,9 @@ export default function ProjectDetailPage() {
           <Field label="Rol responsable" value={project.responsibleRole} />
           <Field label="Teléfono responsable" value={project.responsiblePhone} />
           <Field label="Email responsable" value={project.responsibleEmail} />
-          <Field label="Fecha de inicio" value={new Date(project.startDate).toLocaleDateString('es-CR')} />
+          <Field label="Fecha de inicio" value={formatDate(project.startDate)} />
           {project.estimatedEndDate && (
-            <Field label="Fecha estimada fin" value={new Date(project.estimatedEndDate).toLocaleDateString('es-CR')} />
+            <Field label="Fecha estimada fin" value={formatDate(project.estimatedEndDate)} />
           )}
           <Field label="Duración" value={project.duration} />
           <Field label="Beneficiarios estimados" value={project.estimatedBeneficiaries} />
@@ -113,7 +114,7 @@ export default function ProjectDetailPage() {
                 {project.activities.map((a) => (
                   <tr key={a.id}>
                     <td>{a.activityName}</td>
-                    <td>{a.estimatedDate ? new Date(a.estimatedDate).toLocaleDateString('es-CR') : '—'}</td>
+                    <td>{a.estimatedDate ? formatDate(a.estimatedDate) : '—'}</td>
                     <td>{a.responsible || '—'}</td>
                     <td><StatusBadge value={a.isCompleted} trueLabel="Completada" falseLabel="Pendiente" /></td>
                     <td>

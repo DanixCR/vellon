@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import Pagination from '../../../components/admin/Pagination';
 import { socioeconomicService, type SocioeconomicSummary } from '../../../services/socioeconomicService';
+import { formatDateTime } from '../../../utils/dateUtils';
 
 const PAGE_SIZE = 10;
 
@@ -68,7 +69,7 @@ export default function SocioeconomicListPage() {
               {paged.map((s) => (
                 <tr key={s.id}>
                   <td>#{s.id}</td>
-                  <td>{new Date(s.createdAt).toLocaleDateString('es-CR')}</td>
+                  <td>{formatDateTime(s.createdAt)}</td>
                   <td>{s.familyMemberCount}</td>
                   <td>{fmt(s.totalIncome)}</td>
                   <td>{fmt(s.totalExpenses)}</td>

@@ -4,6 +4,7 @@ import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import Pagination from '../../../components/admin/Pagination';
 import StatusBadge from '../../../components/admin/StatusBadge';
 import { projectService, type ProjectList } from '../../../services/projectService';
+import { formatDate } from '../../../utils/dateUtils';
 
 const PAGE_SIZE = 10;
 
@@ -80,7 +81,7 @@ export default function ProjectListPage() {
                   <td>{p.projectType}</td>
                   <td><StatusBadge value={p.status} /></td>
                   <td>{p.responsibleName}</td>
-                  <td>{new Date(p.startDate).toLocaleDateString('es-CR')}</td>
+                  <td>{formatDate(p.startDate)}</td>
                   <td>
                     <div className="action-row">
                       <button className="btn-primary btn-sm" onClick={() => navigate(`/admin/projects/${p.id}`)}>Ver</button>

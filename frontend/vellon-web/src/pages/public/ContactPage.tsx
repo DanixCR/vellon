@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import logo from '../../assets/ovejitas/logo.jpg';
 import DonationInfo from '../../components/public/DonationInfo';
 import { contactService } from '../../services/contactService';
+import { formatPhoneCR } from '../../utils/maskUtils';
 import '../../styles/public.css';
 
 interface FormValues {
@@ -77,7 +78,9 @@ export default function ContactPage() {
                 <label htmlFor="phone">Teléfono</label>
                 <div className="input-icon-field">
                   <span className="material-symbols-outlined">call</span>
-                  <input id="phone" type="tel" className="pill-input" placeholder="Ej. 8888-8888" {...register('phone')} />
+                  <input id="phone" type="tel" className="pill-input" placeholder="Ej. 8888-8888" maxLength={9} {...register('phone', {
+                    onChange: (e) => { e.target.value = formatPhoneCR(e.target.value); },
+                  })} />
                 </div>
               </div>
             </div>

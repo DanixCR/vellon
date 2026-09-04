@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StatusBadge from '../../../components/admin/StatusBadge';
 import ConfirmDialog from '../../../components/admin/ConfirmDialog';
 import { contactService, type ContactRecord } from '../../../services/contactService';
+import { formatDateTime } from '../../../utils/dateUtils';
 
 export default function ContactDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -63,7 +64,7 @@ export default function ContactDetailPage() {
           </div>
           <div className="detail-field">
             <label>Fecha</label>
-            <p>{new Date(contact.createdAt).toLocaleString('es-CR')}</p>
+            <p>{formatDateTime(contact.createdAt)}</p>
           </div>
         </div>
         {contact.message && (

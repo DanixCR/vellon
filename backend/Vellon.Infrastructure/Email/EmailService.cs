@@ -1,5 +1,6 @@
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MimeKit;
 using Vellon.Application.Services.Interfaces;
 
@@ -7,9 +8,16 @@ namespace Vellon.Infrastructure.Email;
 
 public class EmailService : IEmailService
 {
-    private readonly IConfiguration _config;
+    private static readonly TimeSpan SmtpTimeout = TimeSpan.FromSeconds(10);
 
-    public EmailService(IConfiguration config) => _config = config;
+    private readonly IConfiguration _config;
+    private readonly ILogger<EmailService> _logger;
+
+    public EmailService(IConfiguration config, ILogger<EmailService> logger)
+    {
+        _config = config;
+        _logger = logger;
+    }
 
     public async Task SendPasswordResetEmailAsync(string toName, string toEmail,
         string rawToken, CancellationToken ct = default)
@@ -38,11 +46,36 @@ public class EmailService : IEmailService
                 """
         };
 
-        using var client = new SmtpClient();
-        await client.ConnectAsync(settings["SmtpHost"]!, int.Parse(settings["SmtpPort"]!),
-            MailKit.Security.SecureSocketOptions.StartTls, ct);
-        await client.AuthenticateAsync(settings["SmtpUser"]!, settings["SmtpPassword"]!, ct);
-        await client.SendAsync(message, ct);
-        await client.DisconnectAsync(true, ct);
+        using var timeoutCts = new CancellationTokenSource(SmtpTimeout);
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, timeoutCts.Token);
+        var linkedToken = linkedCts.Token;
+
+        try
+        {
+            using var client = new SmtpClient
+            {
+                Timeout = (int)SmtpTimeout.TotalMilliseconds
+            };
+
+            await client.ConnectAsync(settings["SmtpHost"]!, int.Parse(settings["SmtpPort"]!),
+                MailKit.Security.SecureSocketOptions.StartTls, linkedToken);
+            await client.AuthenticateAsync(settings["SmtpUser"]!, settings["SmtpPassword"]!, linkedToken);
+            await client.SendAsync(message, linkedToken);
+            await client.DisconnectAsync(true, linkedToken);
+        }
+        catch (OperationCanceledException) when (!ct.IsCancellationRequested)
+        {
+            _logger.LogError(
+                "Timeout ({Timeout}s) al enviar el correo de recuperación de contraseña a {Email} vía {Host}:{Port}",
+                SmtpTimeout.TotalSeconds, toEmail, settings["SmtpHost"], settings["SmtpPort"]);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex,
+                "Error al enviar el correo de recuperación de contraseña a {Email} vía {Host}:{Port}",
+                toEmail, settings["SmtpHost"], settings["SmtpPort"]);
+            throw;
+        }
     }
 }

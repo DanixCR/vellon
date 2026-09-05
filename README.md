@@ -272,15 +272,57 @@ npm run dev
 
 ## 📸 Screenshots
 
-> 🚧 *Screenshots en construcción — se agregarán en la próxima versión del README.*
+### Sitio Público
 
-| Vista | Preview |
-|-------|---------|
-| Login | *(próximamente)* |
-| Dashboard | *(próximamente)* |
-| Contactos / Donantes | *(próximamente)* |
-| Estudio Socioeconómico | *(próximamente)* |
-| Proyectos | *(próximamente)* |
+#### Inicio
+![Inicio](screenshots/Vellon_Inicio.png)
+
+#### Nosotros
+![Nosotros](screenshots/Vellon_Nosotros.png)
+
+#### Actividades
+![Actividades](screenshots/Vellon_Actividades.png)
+
+#### Voluntariado
+![Voluntariado](screenshots/Vellon_Voluntariado.png)
+![Voluntariado](screenshots/Vellon_Voluntariado%281%29.png)
+![Voluntariado](screenshots/Vellon_Voluntariado%282%29.png)
+
+#### Contacto
+![Contacto](screenshots/Vellon_Contacto.png)
+
+### Panel Administrativo
+
+#### Dashboard
+![Dashboard](screenshots/Vellon_PA_Dashboard.png)
+
+#### Contactos / Donantes
+![Contactos](screenshots/Vellon_PA_Contactos.png)
+![Detalle de contacto](screenshots/Vellon_PA_DetalleDeContacto.png)
+
+#### Actividades
+![Actividades](screenshots/Vellon_PA_Actividades.png)
+![Nueva actividad](screenshots/Vellon_PA_NuevaActividad.png)
+
+#### Voluntarios
+![Voluntarios](screenshots/Vellon_PA_Voluntarios.png)
+![Detalle del voluntario](screenshots/Vellon_PA_DetalleDelVoluntario.png)
+
+#### Estudio Socioeconómico
+![Estudios](screenshots/Vellon_PA_Estudios.png)
+![Nuevo estudio - paso 1](screenshots/Vellon_PA_NuevoEstudio.png)
+![Nuevo estudio - paso 2](screenshots/Vellon_PA_NuevoEstudio%281%29.png)
+![Nuevo estudio - paso 3](screenshots/Vellon_PA_NuevoEstudio%282%29.png)
+
+#### Proyectos
+![Proyectos](screenshots/Vellon_PA_Proyectos.png)
+![Nuevo proyecto - paso 1](screenshots/Vellon_PA_NuevoProyecto.png)
+![Nuevo proyecto - paso 2](screenshots/Vellon_PA_NuevoProyecto%281%29.png)
+![Nuevo proyecto - paso 3](screenshots/Vellon_PA_NuevoProyecto%282%29.png)
+
+#### Usuarios
+![Usuarios](screenshots/Vellon_PA_Usuarios.png)
+![Nuevo usuario](screenshots/Vellon_PA_NuevoUsuario.png)
 
 ---
 

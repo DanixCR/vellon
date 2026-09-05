@@ -173,7 +173,7 @@ Editá `backend/Vellon.WebAPI/appsettings.Development.json` con tu connection st
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=VellonDb;Trusted_Connection=True;TrustServerCertificate=True"
+    "DefaultConnection": "Server=localhost;Database=VellonDB;Trusted_Connection=True;TrustServerCertificate=True"
   },
   "JwtSettings": {
     "SecretKey": "tu-clave-secreta-de-al-menos-32-caracteres",
@@ -182,15 +182,17 @@ Editá `backend/Vellon.WebAPI/appsettings.Development.json` con tu connection st
     "ExpirationHours": 8
   },
   "EmailSettings": {
-    "FromEmail": "fundacionovejitas@gmail.com",
+    "FromEmail": "vellonsoftware@gmail.com",
     "FromName": "Fundación Ovejitas",
     "SmtpHost": "smtp.gmail.com",
     "SmtpPort": 587,
-    "SmtpUser": "fundacionovejitas@gmail.com",
+    "SmtpUser": "vellonsoftware@gmail.com",
     "SmtpPassword": "TU_GOOGLE_APP_PASSWORD"
   }
 }
 ```
+
+> Para el `SmtpPassword` generá un App Password en [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords).
 
 ### 3. Crear la base de datos
 

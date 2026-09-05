@@ -1,0 +1,13 @@
+{
+  "name": "vellon-manual-generator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Genera docs/Manual-Usuario-Vellon.docx a partir de las capturas en /screenshots",
+  "type": "commonjs",
+  "scripts": {
+    "generate": "node generate-manual.js"
+  },
+  "dependencies": {
+    "docx": "^9.1.1"
+  }
+}

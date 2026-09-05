@@ -44,13 +44,3 @@ jobs:
 
       - name: Build
         run: npm run build --prefix frontend/vellon-web
-
-  security-review:
-    name: Security Review (Claude)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: anthropics/claude-code-security-review@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}

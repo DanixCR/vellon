@@ -3,10 +3,12 @@ using System.Text.Json.Serialization;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Vellon.Application;
 using Vellon.Application.Validators;
 using Vellon.Infrastructure;
+using Vellon.Infrastructure.Data;
 using Vellon.WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,6 +60,10 @@ if (app.Environment.IsProduction())
             "JwtSettings:SecretKey no está configurado correctamente para producción. " +
             "Definí una clave real de al menos 32 caracteres (no el valor placeholder).");
     }
+
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
 }
 
 if (app.Environment.IsDevelopment())

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Vellon.Application\Vellon.Application.csproj" />
     <ProjectReference Include="..\Vellon.Infrastructure\Vellon.Infrastructure.csproj" />
+    <ProjectReference Include="..\Vellon.Infrastructure.Postgres\Vellon.Infrastructure.Postgres.csproj" />
   </ItemGroup>
 
 </Project>

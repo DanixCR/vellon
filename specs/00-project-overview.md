@@ -4,7 +4,7 @@
 **Vellon** es el sistema web de la Fundación Ovejitas de Costa Rica, organización sin fines de lucro orientada al apoyo de familias en condición de vulnerabilidad. Centraliza la gestión de donantes, contactos, actividades y estudios socioeconómicos de beneficiarios.
 
 **Repositorio:** `github.com/DanixCR/vellon`
-**Descripción repo:** Sistema de gestión administrativa para Fundación Ovejitas de Costa Rica. Sitio público informativo + panel administrativo para donantes, actividades y estudios socioeconómicos. ASP.NET Core 10 · Clean Architecture · React · SQL Server.
+**Descripción repo:** Sistema de gestión administrativa para Fundación Ovejitas de Costa Rica. Sitio público informativo + panel administrativo para donantes, actividades y estudios socioeconómicos. ASP.NET Core 10 · Clean Architecture · React · SQL Server / PostgreSQL.
 
 ---
 
@@ -47,8 +47,9 @@
 - **Backend:** ASP.NET Core 10 Web API — C#
 - **ORM:** Entity Framework Core 10
 - **Autenticación:** JWT Bearer + BCrypt + MailKit (recuperación por email)
-- **Base de datos:** SQL Server local → Azure SQL (futuro)
+- **Base de datos:** SQL Server (desarrollo local) · PostgreSQL vía Npgsql (producción en Render)
 - **Arquitectura:** Clean Architecture (4 capas)
+- **Deploy:** Render (Web Service backend + Static Site frontend + PostgreSQL)
 
 ---
 

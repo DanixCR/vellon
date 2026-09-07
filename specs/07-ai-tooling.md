@@ -279,6 +279,37 @@ test: agregar tests de integración para AuthService
 
 ---
 
+## 11. Deploy en Render
+
+Plan de despliegue del sistema en **Render** (plan gratuito), reemplazando la idea original de Azure.
+
+### Backend — Render Web Service
+
+- Servicio tipo **Web Service** apuntando a `backend/Vellon.WebAPI`.
+- Variables de entorno configuradas en el dashboard de Render (no en `appsettings.json`):
+  - `ConnectionStrings__DefaultConnection` → cadena de conexión a PostgreSQL de Render
+  - `JwtSettings__SecretKey`, `JwtSettings__Issuer`, `JwtSettings__Audience`
+  - `EmailSettings__*` (SMTP para recuperación de contraseña)
+  - `AppSettings__FrontendUrl` → URL del frontend en Render (CORS + link de recuperación)
+- Auto-deploy en cada push a `main` (Render detecta el push vía el repo de GitHub conectado).
+
+### Base de datos — Render PostgreSQL
+
+- Instancia **PostgreSQL** gratuita de Render para producción.
+- EF Core usa **Npgsql** como provider en producción, manteniendo **SQL Server** para desarrollo local (dos providers según entorno).
+- Migraciones (`dotnet ef database update`) se aplican contra la base de Render antes o durante el deploy.
+
+### Frontend — Render Static Site
+
+- **Static Site** sirviendo el build de Vite (`npm run build` → carpeta `dist/`).
+- Variable `VITE_API_URL` apuntando a la URL pública del backend en Render.
+
+### Free tier — spin down
+
+Los Web Services gratuitos de Render se duermen tras ~15 minutos sin tráfico y tardan en despertar en la siguiente petición. Ver la sección **UptimeRobot** del `README.md` para el monitor que mantiene el backend activo.
+
+---
+
 ## Flujo Completo de Desarrollo (por módulo)
 
 ```

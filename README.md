@@ -6,10 +6,12 @@
 ![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-2022-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Render-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 ![EF Core](https://img.shields.io/badge/EF%20Core-10.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![MailKit](https://img.shields.io/badge/MailKit-Email-0B7CBD?style=for-the-badge&logo=maildotru&logoColor=white)
 ![Clean Architecture](https://img.shields.io/badge/Clean%20Architecture-4%20capas-29ABE2?style=for-the-badge&logoColor=white)
+![Render](https://img.shields.io/badge/Deploy-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 
 ---
 
@@ -21,6 +23,8 @@
 - [Stack tecnológico](#-stack-tecnológico)
 - [Instalación](#-instalación-local)
 - [Variables de entorno](#-variables-de-entorno)
+- [Deploy](#-deploy)
+- [UptimeRobot](#-uptimerobot)
 - [Screenshots](#-screenshots)
 - [Roadmap](#-roadmap)
 - [Créditos](#-créditos)
@@ -31,7 +35,7 @@
 
 **Vellon** es el sistema web de la **Fundación Ovejitas de Costa Rica**, organización sin fines de lucro orientada al apoyo de familias en condición de vulnerabilidad. Centraliza la gestión de donantes, contactos, actividades, voluntarios, proyectos y estudios socioeconómicos bajo una arquitectura limpia y escalable.
 
-El sistema tiene planificada la integración de un **sitio público generado con Google Stitch (IA)** para la difusión de actividades y captación de nuevos colaboradores, así como el despliegue en **Azure App Service + Azure SQL**.
+El sistema tiene planificada la integración de un **sitio público generado con Google Stitch (IA)** para la difusión de actividades y captación de nuevos colaboradores, así como el despliegue en **Render** (Web Service + PostgreSQL).
 
 ---
 
@@ -53,7 +57,7 @@ El sistema tiene planificada la integración de un **sitio público generado con
 ### 🔜 Próximamente
 
 - 🌐 **Sitio público** — Diseño generado con Google Stitch (IA), páginas Home, Nosotros, Actividades y Contacto
-- ☁️ **Deploy en Azure** — App Service + Azure SQL Database
+- 🚀 **Deploy en Render** — Web Service (backend) + PostgreSQL + Static Site (frontend)
 
 ---
 
@@ -87,7 +91,7 @@ Vellon implementa **Clean Architecture** con 4 capas. La regla fundamental es qu
 ### ¿Por qué Clean Architecture?
 
 - **Testabilidad** — `Domain` y `Application` son C# puro, testeables sin base de datos ni HTTP.
-- **Intercambiabilidad** — Cambiar SQL Server por PostgreSQL solo toca `Infrastructure`.
+- **Intercambiabilidad** — El proveedor de base de datos se resuelve en `Infrastructure`: SQL Server en desarrollo local, PostgreSQL (Npgsql) en producción sobre Render, sin tocar `Domain` ni `Application`.
 - **Separación de responsabilidades** — Los controllers no tienen lógica de negocio; las entidades no saben de HTTP.
 
 ### Estructura de carpetas
@@ -136,7 +140,8 @@ vellon/
 |------|-----------|---------|
 | **Backend** | ASP.NET Core Web API | 10.0 |
 | **ORM** | Entity Framework Core | 10.0 |
-| **Base de datos** | SQL Server | 2022 |
+| **Base de datos** | SQL Server (desarrollo) | 2022 |
+| **Base de datos** | PostgreSQL vía Npgsql (producción, Render) | — |
 | **Autenticación** | JWT + BCrypt | — |
 | **Email** | MailKit (recuperación de contraseña) | — |
 | **Validaciones** | FluentValidation | — |
@@ -270,6 +275,39 @@ npm run dev
 
 ---
 
+## 🚀 Deploy
+
+El deploy en producción está planificado en **Render** (plan gratuito). Todavía no hay una instancia desplegada — las URLs abajo son placeholders a reemplazar cuando el deploy real exista.
+
+| Servicio | Tipo en Render | URL |
+|----------|----------------|-----|
+| Backend (API) | Web Service | `https://vellon-api.onrender.com` *(pendiente)* |
+| Frontend | Static Site | `https://vellon.onrender.com` *(pendiente)* |
+| Base de datos | PostgreSQL | interna, expuesta solo al Web Service vía connection string |
+
+**Pasos generales:**
+
+1. Crear la base de datos **PostgreSQL** en Render (plan free) y copiar la connection string interna.
+2. Crear el **Web Service** para `backend/Vellon.WebAPI`, con las variables de entorno (`ConnectionStrings__DefaultConnection`, `JwtSettings__*`, `EmailSettings__*`, `AppSettings__FrontendUrl`) configuradas en el dashboard — nunca en el repo.
+3. Aplicar las migraciones de EF Core (provider Npgsql) contra la base de Render.
+4. Crear el **Static Site** para `frontend/vellon-web` (`npm run build`, carpeta de salida `dist/`), con `VITE_API_URL` apuntando a la URL del Web Service.
+5. Activar auto-deploy en cada push a `main`.
+
+Ver también [`specs/07-ai-tooling.md`](specs/07-ai-tooling.md) para el detalle completo del plan de deploy.
+
+---
+
+## 🔔 UptimeRobot
+
+Los Web Services gratuitos de Render se **duermen tras ~15 minutos sin tráfico**, y la primera petición tras dormirse tarda bastante en responder (cold start). Para evitarlo, se configura un monitor gratuito en [UptimeRobot](https://uptimerobot.com):
+
+1. Crear una cuenta gratuita en UptimeRobot.
+2. Agregar un monitor tipo **HTTP(s)** apuntando a un endpoint del backend en Render (ej. el endpoint público de actividades o un health check dedicado).
+3. Configurar el intervalo de chequeo en **5 minutos** (por debajo del umbral de sleep de Render).
+4. El ping periódico mantiene el backend activo, evitando el cold start para los usuarios reales del sitio.
+
+---
+
 ## 📸 Screenshots
 
 ### Sitio Público
@@ -357,11 +395,12 @@ npm run dev
 - [x] Formulario de contacto integrado con el backend
 - [x] Registro de voluntarios desde el sitio público
 
-### ☁️ Fase 5 — Deploy en Azure
-- [ ] Deploy backend en Azure App Service
-- [ ] Azure SQL Database
-- [ ] Deploy frontend en Azure Static Web Apps
-- [ ] Variables de entorno en Azure Key Vault
+### 🚀 Fase 5 — Deploy en Render (gratuito)
+- [ ] Deploy backend en Render Web Service
+- [ ] PostgreSQL en Render (provider Npgsql en producción)
+- [ ] Deploy frontend en Render Static Site
+- [ ] Variables de entorno configuradas en el dashboard de Render
+- [ ] UptimeRobot configurado para mantener el backend activo
 
 ---
 

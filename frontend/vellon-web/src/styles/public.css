@@ -751,7 +751,7 @@
   box-shadow: var(--shadow-soft);
 }
 
-.info-item > div {
+.info-item > div:not(.icon-circle) {
   min-width: 0;
   flex: 1;
 }

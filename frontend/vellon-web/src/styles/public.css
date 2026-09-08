@@ -757,8 +757,9 @@
 }
 
 .info-item .icon-circle {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
+  aspect-ratio: 1;
   margin-bottom: 0;
   flex-shrink: 0;
   background: #cde5ff;

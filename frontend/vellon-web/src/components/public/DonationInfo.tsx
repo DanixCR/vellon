@@ -26,7 +26,7 @@ export default function DonationInfo({ border = 'primary' }: DonationInfoProps) 
       <div className="info-list">
         {ACCOUNTS.map((account) => (
           <div className="info-item" key={account.label}>
-            <div className="icon-circle" style={{ width: 40, height: 40, margin: 0, background: 'var(--color-secondary-container)' }}>
+            <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
               <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>{account.icon}</span>
             </div>
             <div>

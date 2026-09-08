@@ -137,44 +137,44 @@ export default function ContactPage() {
           </form>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gutter)' }}>
-          <div className="card card--border-tertiary" style={{ textAlign: 'center' }}>
-            <img src={logo} alt="Fundación Ovejitas" style={{ width: 96, height: 96, margin: '0 auto var(--space-md)', display: 'block', borderRadius: '50%' }} />
-            <h2 className="fieldset-title" style={{ fontSize: 24, marginBottom: 'var(--space-md)' }}>Información de Contacto</h2>
-            <div className="info-list" style={{ textAlign: 'left' }}>
-              <div className="info-item">
-                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>location_on</span>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700 }}>Dirección</h3>
-                  <p className="section-subtitle" style={{ fontSize: 15 }}>San José, Costa Rica</p>
-                </div>
+        <div className="card card--border-tertiary" style={{ textAlign: 'center' }}>
+          <img src={logo} alt="Fundación Ovejitas" style={{ width: 96, height: 96, margin: '0 auto var(--space-md)', display: 'block', borderRadius: '50%' }} />
+          <h2 className="fieldset-title" style={{ fontSize: 24, marginBottom: 'var(--space-md)' }}>Información de Contacto</h2>
+          <div className="info-list" style={{ textAlign: 'left' }}>
+            <div className="info-item">
+              <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>location_on</span>
               </div>
-              <div className="info-item">
-                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>mail</span>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700 }}>Email</h3>
-                  <p className="section-subtitle" style={{ fontSize: 15 }}>fundacionovejitas@gmail.com</p>
-                </div>
+              <div>
+                <h3 style={{ fontSize: 14, fontWeight: 700 }}>Dirección</h3>
+                <p className="section-subtitle" style={{ fontSize: 15 }}>San José, Costa Rica</p>
               </div>
-              <div className="info-item">
-                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>phone</span>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700 }}>Teléfono</h3>
-                  <p className="section-subtitle" style={{ fontSize: 15 }}>6480-1020</p>
-                </div>
+            </div>
+            <div className="info-item">
+              <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>mail</span>
+              </div>
+              <div>
+                <h3 style={{ fontSize: 14, fontWeight: 700 }}>Email</h3>
+                <p className="section-subtitle" style={{ fontSize: 15 }}>fundacionovejitas@gmail.com</p>
+              </div>
+            </div>
+            <div className="info-item">
+              <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>phone</span>
+              </div>
+              <div>
+                <h3 style={{ fontSize: 14, fontWeight: 700 }}>Teléfono</h3>
+                <p className="section-subtitle" style={{ fontSize: 15 }}>6480-1020</p>
               </div>
             </div>
           </div>
-
-          <DonationInfo border="secondary" />
         </div>
       </div>
+
+      <section>
+        <DonationInfo border="secondary" />
+      </section>
     </main>
   );
 }

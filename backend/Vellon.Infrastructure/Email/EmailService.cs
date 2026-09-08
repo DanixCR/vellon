@@ -121,7 +121,7 @@ public class EmailService : IEmailService
             };
 
             await client.ConnectAsync(settings["SmtpHost"]!, int.Parse(settings["SmtpPort"]!),
-                MailKit.Security.SecureSocketOptions.StartTls, linkedToken);
+                MailKit.Security.SecureSocketOptions.SslOnConnect, linkedToken);
             await client.AuthenticateAsync(settings["SmtpUser"]!, settings["SmtpPassword"]!, linkedToken);
             await client.SendAsync(message, linkedToken);
             await client.DisconnectAsync(true, linkedToken);

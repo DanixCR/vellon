@@ -143,7 +143,7 @@ export default function ContactPage() {
             <h2 className="fieldset-title" style={{ fontSize: 24, marginBottom: 'var(--space-md)' }}>Información de Contacto</h2>
             <div className="info-list" style={{ textAlign: 'left' }}>
               <div className="info-item">
-                <div className="icon-circle" style={{ width: 40, height: 40, margin: 0, background: 'var(--color-secondary-container)' }}>
+                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>location_on</span>
                 </div>
                 <div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="info-item">
-                <div className="icon-circle" style={{ width: 40, height: 40, margin: 0, background: 'var(--color-secondary-container)' }}>
+                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>mail</span>
                 </div>
                 <div>
@@ -161,7 +161,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="info-item">
-                <div className="icon-circle" style={{ width: 40, height: 40, margin: 0, background: 'var(--color-secondary-container)' }}>
+                <div className="icon-circle" style={{ margin: 0, background: 'var(--color-secondary-container)' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--color-primary)' }}>phone</span>
                 </div>
                 <div>

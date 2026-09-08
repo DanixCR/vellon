@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="navbar-inner container">
         <Link to="/" className="navbar-brand" onClick={() => setOpen(false)}>
           <img src={logo} alt="Fundación Ovejitas" />
-          Fundación Ovejitas
+          <span className="navbar-brand-text">Fundación Ovejitas</span>
         </Link>
 
         <div className="navbar-links">

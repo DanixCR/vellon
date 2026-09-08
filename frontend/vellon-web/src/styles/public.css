@@ -66,6 +66,14 @@
   --shadow-soft-lg: 0 15px 40px -5px rgba(41, 171, 226, 0.2);
 }
 
+/* Espaciados más chicos en móvil (~360-430px) — mismos tokens, menos aire */
+@media (max-width: 639px) {
+  :root {
+    --space-lg: 24px;
+    --space-xl: 40px;
+  }
+}
+
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
@@ -95,6 +103,8 @@
   display: flex;
   flex-direction: column;
   font: var(--font-body-md);
+  overflow-x: hidden;
+  overflow-wrap: break-word;
 }
 
 .container {
@@ -137,16 +147,42 @@
   display: flex;
   align-items: center;
   gap: var(--space-base);
-  font: var(--font-headline-lg);
+  font: var(--font-headline-sm);
   color: var(--color-primary);
   letter-spacing: -0.01em;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.navbar-brand-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .navbar-brand img {
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   object-fit: contain;
   border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 480px) {
+  .navbar-brand {
+    font: var(--font-headline-md);
+  }
+  .navbar-brand img {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-brand {
+    font: var(--font-headline-lg);
+  }
 }
 
 .navbar-links {
@@ -370,8 +406,15 @@
 }
 
 .section-title {
-  font: var(--font-display-lg);
+  font: var(--font-headline-lg-mobile);
   color: var(--color-primary);
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font: var(--font-display-lg);
+  }
 }
 
 .section-subtitle {
@@ -708,6 +751,11 @@
   box-shadow: var(--shadow-soft);
 }
 
+.info-item > div {
+  min-width: 0;
+  flex: 1;
+}
+
 .info-item .icon-circle {
   width: 40px;
   height: 40px;
@@ -719,6 +767,10 @@
 .info-item .icon-circle .material-symbols-outlined {
   font-size: 20px;
   color: var(--color-primary);
+}
+
+.contact-grid {
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 900px) {

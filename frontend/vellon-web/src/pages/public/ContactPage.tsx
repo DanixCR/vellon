@@ -45,7 +45,7 @@ export default function ContactPage() {
         </p>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--gutter)', width: '100%' }} className="contact-grid">
+      <div style={{ display: 'grid', gap: 'var(--gutter)', width: '100%' }} className="contact-grid">
         <div className="card card--border-primary" style={{ gridColumn: 'span 1' }}>
           {status === 'success' && (
             <div className="form-message success" style={{ marginBottom: 'var(--space-md)' }}>

@@ -277,12 +277,12 @@ npm run dev
 
 ## 🚀 Deploy
 
-El deploy en producción está planificado en **Render** (plan gratuito). Todavía no hay una instancia desplegada — las URLs abajo son placeholders a reemplazar cuando el deploy real exista.
+El sistema está desplegado en **Render** (plan gratuito).
 
 | Servicio | Tipo en Render | URL |
 |----------|----------------|-----|
-| Backend (API) | Web Service | `https://vellon-api.onrender.com` *(pendiente)* |
-| Frontend | Static Site | `https://vellon.onrender.com` *(pendiente)* |
+| Backend (API) | Web Service | [https://vellon-api.onrender.com](https://vellon-api.onrender.com) |
+| Frontend | Static Site | [https://vellon.onrender.com](https://vellon.onrender.com) |
 | Base de datos | PostgreSQL | interna, expuesta solo al Web Service vía connection string |
 
 **Pasos generales:**

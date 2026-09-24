@@ -82,7 +82,17 @@ export default function ProjectFormPage() {
     setSaving(true);
     setError('');
     try {
-      const payload = { ...form, activities, budgetItems };
+      const toUtc = (d: string) => new Date(d + 'T00:00:00Z').toISOString();
+      const payload = {
+        ...form,
+        startDate: toUtc(form.startDate),
+        estimatedEndDate: form.estimatedEndDate ? toUtc(form.estimatedEndDate) : form.estimatedEndDate,
+        activities: activities.map((a) => ({
+          ...a,
+          estimatedDate: a.estimatedDate ? toUtc(a.estimatedDate) : a.estimatedDate,
+        })),
+        budgetItems,
+      };
       if (isEdit) {
         await projectService.update(Number(id), payload);
         if (status !== originalStatus) {

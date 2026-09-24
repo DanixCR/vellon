@@ -27,10 +27,14 @@ export default function ActivityFormPage() {
   }, [id, isEdit, reset]);
 
   const onSubmit = async (data: CreateActivityInput) => {
+    const payload = {
+      ...data,
+      activityDate: new Date(data.activityDate + 'T00:00:00Z').toISOString(),
+    };
     if (isEdit) {
-      await activityService.update(Number(id), data);
+      await activityService.update(Number(id), payload);
     } else {
-      await activityService.create(data);
+      await activityService.create(payload);
     }
     navigate('/admin/activities');
   };

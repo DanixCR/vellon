@@ -74,7 +74,7 @@ export default function VolunteerPage() {
       await volunteerService.create({
         fullName: data.fullName,
         idNumber: data.idNumber,
-        birthDate: new Date(data.birthDate + 'T00:00:00Z').toISOString(),
+        birthDate: new Date(data.birthDate + 'T12:00:00Z').toISOString(),
         age: calculateAge(data.birthDate),
         phone: data.phone,
         email: data.email,

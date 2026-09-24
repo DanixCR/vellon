@@ -82,7 +82,7 @@ export default function ProjectFormPage() {
     setSaving(true);
     setError('');
     try {
-      const toUtc = (d: string) => new Date(d + 'T00:00:00Z').toISOString();
+      const toUtc = (d: string) => new Date(d + 'T12:00:00Z').toISOString();
       const payload = {
         ...form,
         startDate: toUtc(form.startDate),

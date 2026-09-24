@@ -1,4 +1,5 @@
 import logo from '../../assets/ovejitas/logo.jpg';
+import { formatDate } from '../../utils/dateUtils';
 import '../../styles/public.css';
 
 interface ActivityCardProps {
@@ -6,11 +7,6 @@ interface ActivityCardProps {
   description: string;
   activityDate: string;
   imageUrl?: string | null;
-}
-
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('es-CR', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export default function ActivityCard({ title, description, activityDate, imageUrl }: ActivityCardProps) {

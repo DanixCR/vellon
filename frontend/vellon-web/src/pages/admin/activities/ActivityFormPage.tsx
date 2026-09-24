@@ -29,7 +29,7 @@ export default function ActivityFormPage() {
   const onSubmit = async (data: CreateActivityInput) => {
     const payload = {
       ...data,
-      activityDate: new Date(data.activityDate + 'T00:00:00Z').toISOString(),
+      activityDate: new Date(data.activityDate + 'T12:00:00Z').toISOString(),
     };
     if (isEdit) {
       await activityService.update(Number(id), payload);
